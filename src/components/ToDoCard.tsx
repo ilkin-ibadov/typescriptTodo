@@ -15,7 +15,7 @@ function ToDoCard({ todo }: Props) {
         <button
           className="cardBtn"
           onClick={() => {
-            ToDoStoreObj.setToggleEditCard({ status: "active", id: todo.id });
+            ToDoStoreObj.setToggleEditCard({ status: "active", id: todo._id });
             ToDoStoreObj.setWithOverlay("active");
             ToDoStoreObj.setEditedCardTitle(todo.title);
             ToDoStoreObj.setEditedCardDescription(todo.description);
@@ -26,7 +26,7 @@ function ToDoCard({ todo }: Props) {
         <button
           className="cardBtn"
           onClick={() => {
-            ToDoStoreObj.setToggleDeleteCard({ status: "active", id: todo.id });
+            ToDoStoreObj.setToggleDeleteCard({ status: "active", id: todo._id });
             ToDoStoreObj.setWithOverlay("active");
           }}
         >

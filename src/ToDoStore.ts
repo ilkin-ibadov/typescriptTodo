@@ -1,9 +1,8 @@
-import { action, makeAutoObservable, observable } from "mobx";
+import { makeAutoObservable } from "mobx";
 import { toastSomethingWentWrong } from "./toastMessages";
-import { useNavigate } from "react-router-dom";
 
 export type ToDoItem = {
-  id?: number;
+  _id?: string;
   title: string;
   description: string;
   author?: string;
@@ -11,11 +10,11 @@ export type ToDoItem = {
 
 type editObj = {
   status: string;
-  id: number | undefined;
+  id: string | undefined;
 };
 
 class ToDoStore {
-  url: string = "https://l.study-link-demo.com/cards";
+  url: string = "http://localhost:3000/cards";
 
   author: string = JSON.stringify(localStorage.getItem("email"))
     .substring(1)
@@ -27,9 +26,9 @@ class ToDoStore {
 
   toggleCreateCard: string = "";
 
-  toggleEditCard: editObj = { status: "", id: 0 };
+  toggleEditCard: editObj = { status: "", id: "" };
 
-  toggleDeleteCard: editObj = { status: "", id: 0 };
+  toggleDeleteCard: editObj = { status: "", id: "" };
 
   editedCardTitle: string = "";
 
@@ -111,6 +110,7 @@ class ToDoStore {
   }
 
   getAllToDos() {
+    // console.log(this.url + "/" + this.author)
     if (this.author) {
       fetch(this.url + "/" + this.author)
         .then((response) => {
@@ -130,6 +130,7 @@ class ToDoStore {
   }
 
   editToDo() {
+    // console.log(this.toggleEditCard.id)
     fetch(this.url + "/" + this.toggleEditCard.id, {
       method: "PUT",
       mode: "cors",
